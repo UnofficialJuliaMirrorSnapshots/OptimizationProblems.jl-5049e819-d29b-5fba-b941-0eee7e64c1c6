@@ -20,11 +20,14 @@
 #
 # J.-P. Dussault, Clermont-Ferrand 05/2016.
 
+# Note: discrepancy with CUTEst appears to be a bug in CUTEst, this (now) matches the original paper
+# (See issue #36)
+
 export nondia
 
 function nondia(n :: Int=100)
 
-    n < 2 && Compat.@warn("nondia: number of variables must be ≥ 2")
+    n < 2 && @warn("nondia: number of variables must be ≥ 2")
     n = max(2, n)
 
     nlp = Model()
@@ -33,7 +36,7 @@ function nondia(n :: Int=100)
     @NLobjective(
       nlp,
       Min,
-	    (x[1] - 1.0)^2 + sum((100.0*x[1] - x[i-1]^2)^2 for i=2:n)
+      (x[1] - 1.0)^2 + 100*sum((x[1] - x[i]^2)^2 for i=2:n)
     )
 
     return nlp

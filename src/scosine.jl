@@ -17,12 +17,15 @@
 #
 # J.-P. Dussault, Clermont-Ferrand 05/2016.
 
+# Note: discrepancy with CUTEst appears to be a bug in CUTEst, this matches the original paper
+# (See issue #36)
+
 export scosine
 
 "Another function with nontrivial groups and repetitious elements in size 'n' "
 function scosine(n :: Int=100)
 
-    n < 2 && Compat.@warn("scosine: number of variables must be ≥ 2")
+    n < 2 && @warn("scosine: number of variables must be ≥ 2")
     n = max(2, n)
 
     nlp = Model()
